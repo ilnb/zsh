@@ -79,5 +79,4 @@ alias ..='cd ..'
 alias l='ls -all'
 # Shell integrations
 #eval "$(fzf)"
-source /opt/ros/humble/setup.zsh
 export PATH="/usr/include/opencv4:$PATH"
