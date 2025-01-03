@@ -76,7 +76,14 @@ alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
 alias ..='cd ..'
-alias l='ls -all'
+alias l='ls -hal'
+alias off='shutdown -h now'
+alias re='shutdown -r now'
+alias jp='ibus-daemon &'
+alias ff='clear && fastfetch'
+alias upgrade='sudo apt update && sudo apt upgrade'
+
 # Shell integrations
 #eval "$(fzf)"
 export PATH="/usr/include/opencv4:$PATH"
+# export PATH=$PATH:/usr/local/go/bin
