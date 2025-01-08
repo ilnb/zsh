@@ -81,7 +81,8 @@ alias off='shutdown -h now'
 alias re='shutdown -r now'
 alias jp='ibus-daemon &'
 alias ff='clear && fastfetch'
-alias upgrade='sudo apt update && sudo apt upgrade'
+alias upgrade='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove'
+alias com='nvim ~/code/commands'
 
 # Shell integrations
 #eval "$(fzf)"
