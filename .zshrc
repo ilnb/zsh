@@ -32,7 +32,7 @@ zinit light joshskidmore/zsh-fzf-history-search
 zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-#zinit snippet OMZP::archlinux
+zinit snippet OMZP::archlinux
 #zinit snippet OMZP::aws
 #zinit snippet OMZP::kubectl
 #zinit snippet OMZP::kubectx
@@ -78,13 +78,11 @@ alias c='clear'
 alias ..='cd ..'
 alias l='ls -hal'
 alias off='shutdown -h now'
-alias re='shutdown -r now'
-alias jp='ibus-daemon &'
+alias re='reboot'
 alias ff='clear && fastfetch'
-alias upgrade='sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove'
 alias com='nvim ~/code/commands'
+alias cons='echo 1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
+alias dont='echo 0 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
 
 # Shell integrations
-#eval "$(fzf)"
-export PATH="/usr/include/opencv4:$PATH"
 # export PATH=$PATH:/usr/local/go/bin
