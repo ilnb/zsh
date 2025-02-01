@@ -94,7 +94,7 @@ alias up='in -u && yay -Syu'
 alias perf='cd && ./perf.sh && cd -'
 alias psave='cd && ./save.sh && cd -'
 alias hy='hyprland'
-alias history='nvim ~/.zsh_history'
+alias his='nvim ~/.zsh_history'
 
 # Shell integrations
 # export PATH=$PATH:/usr/local/go/bin
