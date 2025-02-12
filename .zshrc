@@ -136,7 +136,7 @@ alias shell='nvim ~/.zshrc'
 alias charge='lenopow -d'
 alias dont='lenopow -e'
 alias perf='cd && ./perf.sh && cd -'
-alias psave='cd && ./save.sh && cd -'
+alias psave='cd && ./psave.sh && cd -'
 alias his='nvim ~/.zsh_history'
 
 # Listing files and directories
