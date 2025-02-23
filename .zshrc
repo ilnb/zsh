@@ -1,47 +1,19 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+export ZSH="$HOME/.oh-my-zsh"
 
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Download Zinit, if it's not there yet
-if [ ! -d "$ZINIT_HOME" ]; then
-  mkdir -p "$(dirname $ZINIT_HOME)"
-  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
-
-# Source/Load zinit
-source "${ZINIT_HOME}/zinit.zsh"
-
-# Add in Powerlevel10k
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-zinit ice lucid wait'0'
-
-# Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
-zinit light joshskidmore/zsh-fzf-history-search
-
-# Add in snippets
-zinit snippet OMZL::git.zsh
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
-#zinit snippet OMZP::aws
-#zinit snippet OMZP::kubectl
-#zinit snippet OMZP::kubectx
-zinit snippet OMZP::command-not-found
-
-# Load completions
+plugins=(
+  git
+  zsh-syntax-highlighting
+  zsh-completions
+  zsh-autosuggestions
+  fzf-tab
+  zsh-fzf-history-search
+  sudo
+  command-not-found
+)
+source $ZSH/oh-my-zsh.sh
 autoload -Uz compinit && compinit
-
-zinit cdreplay -q
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -73,33 +45,10 @@ elif pacman -Qi paru &>/dev/null; then
   aurhelper="paru"
 fi
 
-function in {
-  local -a inPkg=("$@")
-  local -a arch=()
-  local -a aur=()
-
-  for pkg in "${inPkg[@]}"; do
-    if pacman -Si "${pkg}" &>/dev/null; then
-      arch+=("${pkg}")
-    else
-      aur+=("${pkg}")
-    fi
-  done
-
-  if [[ ${#arch[@]} -gt 0 ]]; then
-    sudo pacman -S "${arch[@]}"
-  fi
-
-  if [[ ${#aur[@]} -gt 0 ]]; then
-    ${aurhelper} -S "${aur[@]}"
-  fi
-}
-
 # Keybindings
-bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-bindkey '^[w' kill-region
+bindkey -v
 
 # History
 HISTSIZE=5000
@@ -118,43 +67,69 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=auto --color=always --all $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
 
 # General Aliases
-alias vim='nvim'
 alias hy='hyprland'
 alias c='clear'
-alias off='shutdown now'
-alias re='reboot'
 alias ff='c && fastfetch'
 alias ffn='c && fastfetch --load-config ~/.config/fastfetch/base_config.jsonc'
 alias ffa='c && ff -c all'
 alias com='nvim ~/code/arch\ commands'
 alias nvimconfig='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
-alias hyconfig='cd ~/.config/hypr/'
+alias hyconfig='find ~/.config/hypr \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/hypr/"{}"'
+alias cp='rsync -ah --info=progress2'
 alias shell='nvim ~/.zshrc'
-alias charge='lenopow -d'
-alias dont='lenopow -e'
-alias perf='cd && ./perf.sh && cd -'
-alias psave='cd && ./psave.sh && cd -'
 alias his='nvim ~/.zsh_history'
 
+# System related
+alias off='shutdown now'
+alias re='reboot'
+alias charge='lenopow -d'
+alias dont='lenopow -e'
+
 # Listing files and directories
-alias l='eza -lh --icons=auto' # long list
-alias la='eza -a --icons=auto' # grid all
 alias ls='eza --icons=auto' # grid
+alias la='eza -a --icons=auto' # grid all
+alias l='eza -lh --icons=auto' # long list
 alias ll='eza -lha --icons=auto --sort=name --group-directories-first' # long list all
 alias ld='eza -lhD --icons=auto' # long list dirs
 alias lt='eza --icons=auto --tree' # list folder as tree
+
+# Power modes
+psave() {
+  for cpu in /sys/devices/system/cpu/cpu[0-9]*; do
+    echo powersave | sudo tee "$cpu/cpufreq/scaling_governor"
+  done
+}
+
+perf() {
+  for cpu in /sys/devices/system/cpu/cpu[0-9]*; do
+    echo performance | sudo tee "$cpu/cpufreq/scaling_governor"
+  done
+}
+
+# Git Aliases
+alias ga='git add'
+alias gaa='git add --all' # adds new and old files
+alias gcm='git commit -m' # commit message
+alias gcam='git commit -am' # commits old files
+alias gp='git push'
+alias gpbm='git push --upstream branch main'
+alias gst='git status'
+alias grs='git restore'
+alias grst='git restore --staged'
 
 # Packages
 alias pl='$aurhelper -Qs' # list installed package
 alias pa='$aurhelper -Ss' # list available package
 alias pc='$aurhelper -Sc' # remove unused cache
 alias po='$aurhelper -Qtdq | $aurhelper -Rns -' # remove unused packages, also try > $aurhelper -Qqd | $aurhelper -Rsu --print -
-alias un='sudo pacman -Rns'
 alias in='sudo pacman -Sy'
-alias up='in -u && yay -Syu'
+alias yin='yay -Sy'
+alias un='sudo pacman -Rns'
+alias yun='yay -Rns'
+alias up='in -u && yin -u'
 
 # Directory navigation shortcuts
 alias ..='cd ..'
@@ -167,7 +142,7 @@ alias .5='cd ../../../../..'
 alias mkdir='mkdir -p'
 
 # Shell integrations
-# export PATH=$PATH:/usr/local/go/bin
 export QT_IM_MODULE='fcitx'
 export SDL_IM_MODULE='fcitx'
 export XMODIFIERS='@im=fcitx'
+export LANG='en_US.UTF-8'
