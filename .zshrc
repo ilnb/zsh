@@ -110,10 +110,12 @@ perf() {
 }
 
 # Git Aliases
+alias g='git'
 alias ga='git add'
 alias gaa='git add --all' # adds new and old files
 alias gcm='git commit -m' # commit message
 alias gcam='git commit -am' # commits old files
+alias gaacm='git add -A && git commit -m' # commits new and old files
 alias gp='git push'
 alias gpbm='git push --upstream branch main'
 alias gst='git status'
@@ -143,6 +145,6 @@ alias mkdir='mkdir -p'
 
 # Shell integrations
 export QT_IM_MODULE='fcitx'
-export SDL_IM_MODULE='fcitx'
 export XMODIFIERS='@im=fcitx'
 export LANG='en_US.UTF-8'
+export ZSH_FZF_TMP_DIR='$HOME/.cache/zsh-fzf-tab'
