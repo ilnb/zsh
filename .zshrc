@@ -3,7 +3,6 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
-  git
   zsh-syntax-highlighting
   zsh-completions
   zsh-autosuggestions
@@ -78,9 +77,12 @@ alias ffa='c && ff -c all'
 alias com='nvim ~/code/arch\ commands'
 alias nvimconfig='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
 alias hyconfig='find ~/.config/hypr \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/hypr/"{}"'
-alias cp='rsync -ah --info=progress2'
+alias cp='rsync -h --info=progress2'
 alias shell='nvim ~/.zshrc'
 alias his='nvim ~/.zsh_history'
+alias anime='ani-cli'
+alias nvfz='fzf | xargs -r nvim'
+alias nvfze='fzf -e | xargs -r nvim'
 
 # System related
 alias off='shutdown now'
@@ -93,7 +95,7 @@ alias ls='eza --icons=auto' # grid
 alias la='eza -a --icons=auto' # grid all
 alias l='eza -lh --icons=auto' # long list
 alias ll='eza -lha --icons=auto --sort=name --group-directories-first' # long list all
-alias ld='eza -lhD --icons=auto' # long list dirs
+alias ld='eza -lhaD --icons=auto' # long list dirs
 alias lt='eza --icons=auto --tree' # list folder as tree
 
 # Power modes
@@ -117,7 +119,7 @@ alias gcm='git commit -m' # commit message
 alias gcam='git commit -am' # commits old files
 alias gaacm='git add -A && git commit -m' # commits new and old files
 alias gp='git push'
-alias gpbm='git push --upstream branch main'
+alias gpbm='git push --set-upstream branch main'
 alias gst='git status'
 alias grs='git restore'
 alias grst='git restore --staged'
