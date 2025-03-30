@@ -45,9 +45,8 @@ elif pacman -Qi paru &>/dev/null; then
 fi
 
 # Keybindings
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
 bindkey -v
+bindkey '^H' fzf_history_search
 
 # History
 HISTSIZE=5000
