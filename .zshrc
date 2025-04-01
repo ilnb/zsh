@@ -47,6 +47,8 @@ fi
 # Keybindings
 bindkey -v
 bindkey '^H' fzf_history_search
+# bindkey '^p' history-search-backward
+# bindkey '^n' history-search-forward
 
 # History
 HISTSIZE=5000
@@ -74,7 +76,7 @@ alias ff='c && fastfetch'
 alias ffn='c && fastfetch --load-config ~/.config/fastfetch/base_config.jsonc'
 alias ffa='c && ff -c all'
 alias com='nvim ~/code/arch\ commands'
-alias nvimcfg='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
+alias nvcfg='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
 alias hycfg='find ~/.config/hypr \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/hypr/"{}"'
 alias cp='rsync -h --info=progress2'
 alias shell='nvim ~/.zshrc'
@@ -126,7 +128,7 @@ alias grst='git restore --staged'
 # Packages
 alias pl='$aurhelper -Qs' # list installed package
 alias pa='$aurhelper -Ss' # list available package
-alias pc='$aurhelper -Sc' # remove unused cache
+alias pc='yes | $aurhelper -Sc' # remove unused cache
 alias po='$aurhelper -Qtdq | $aurhelper -Rns -' # remove unused packages, also try > $aurhelper -Qqd | $aurhelper -Rsu --print -
 alias in='sudo pacman -Sy'
 alias yin='yay -Sy'
