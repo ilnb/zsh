@@ -76,14 +76,16 @@ alias ff='c && fastfetch'
 alias ffn='c && fastfetch --load-config ~/.config/fastfetch/base_config.jsonc'
 alias ffa='c && ff -c all'
 alias com='nvim ~/code/arch\ commands'
-alias nvcfg='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
+#alias nvcfg='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
+alias ng='~/.config/nvim'
 alias hycfg='find ~/.config/hypr \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/hypr/"{}"'
-alias cp='rsync -h --info=progress2'
+alias cpr='rsync -h --info=progress2'
 alias shell='nvim ~/.zshrc'
 alias his='nvim ~/.zsh_history'
 alias anime='ani-cli'
 alias nvfz='fzf | xargs -r nvim'
 alias nvfze='fzf -e | xargs -r nvim'
+alias pyenv='source ~/venv/bin/activate'
 
 # System related
 alias off='shutdown now'
@@ -120,7 +122,7 @@ alias gcm='git commit -m' # commit message
 alias gcam='git commit -am' # commits old files
 alias gaacm='git add -A && git commit -m' # commits new and old files
 alias gp='git push'
-alias gpbm='git push --set-upstream branch main'
+alias gpm='git push --set-upstream origin main'
 alias gst='git status'
 alias grs='git restore'
 alias grst='git restore --staged'
@@ -135,6 +137,7 @@ alias yin='yay -Sy'
 alias un='sudo pacman -Rns'
 alias yun='yay -Rns'
 alias up='in -u && yin -u'
+alias ida='/opt/ida-free/ida64'
 
 # Directory navigation shortcuts
 alias ..='cd ..'
