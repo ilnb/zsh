@@ -141,6 +141,7 @@ alias yun='yay -Rns'
 alias up='in -u && yin -u'
 
 # Directory navigation shortcuts
+alias yz='yazi'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias .3='cd ../../..'
