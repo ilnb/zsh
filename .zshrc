@@ -137,7 +137,6 @@ alias po='$aurhelper -Qtdq | $aurhelper -Rns -' # remove unused packages, also t
 alias in='sudo pacman -Sy'
 alias yin='yay -Sy'
 alias un='sudo pacman -Rns'
-alias yun='yay -Rns'
 alias up='in -u && yin -u'
 
 # Directory navigation shortcuts
