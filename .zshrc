@@ -62,6 +62,8 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+# unsetopt hist_verify
+# uncoment for direct exec of expansions
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -70,7 +72,6 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
 
 # General Aliases
-alias hy='hyprland'
 alias c='clear'
 alias ff='c && fastfetch'
 alias ffn='c && fastfetch --load-config ~/.config/fastfetch/base_config.jsonc'
