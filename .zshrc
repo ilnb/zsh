@@ -70,6 +70,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
 
 # General Aliases
 alias c='clear'
@@ -142,7 +143,6 @@ alias up='in -u && yin -u'
 
 # Directory navigation shortcuts
 alias yz='yazi'
-alias cd='z'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias .3='cd ../../..'
@@ -158,4 +158,4 @@ export QT_IM_MODULE='fcitx'
 export XMODIFIERS='@im=fcitx'
 export LANG='en_US.UTF-8'
 export FZF_DEFAULT_COMMAND='fd -HI -t f -E .git'
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
