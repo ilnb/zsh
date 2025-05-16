@@ -81,13 +81,13 @@ alias com='nvim ~/code/arch\ commands'
 alias ng='~/.config/nvim'
 alias hycfg='find ~/.config/hypr \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/hypr/"{}"'
 alias hg='~/.config/hypr'
-alias cpr='rsync -h --info=progress2'
+alias cp='rsync -h --info=progress2'
 alias shell='nvim ~/.zshrc'
 alias his='nvim ~/.zsh_history'
 alias anime='ani-cli'
 alias lutris='/opt/lutris.sh'
-alias nvfz='fzf | xargs -rI {} nvim "{}"'
-alias nvfze='fzf -e | xargs -rI {} nvim "{}"'
+alias fvim='fzf --preview "cat {}" | xargs -rI {} nvim "{}"'
+alias fevim='fzf -e --preview "cat {}" | xargs -rI {} nvim "{}"'
 alias pyenv='source ~/venv/bin/activate'
 
 # System related
@@ -142,6 +142,7 @@ alias up='in -u && yin -u'
 
 # Directory navigation shortcuts
 alias yz='yazi'
+alias cd='z'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias .3='cd ../../..'
@@ -152,7 +153,9 @@ alias .5='cd ../../../../..'
 alias mkdir='mkdir -p'
 
 # Shell integrations
+export GTK_IM_MODULE='fcitx'
 export QT_IM_MODULE='fcitx'
 export XMODIFIERS='@im=fcitx'
 export LANG='en_US.UTF-8'
 export FZF_DEFAULT_COMMAND='fd -HI -t f -E .git'
+eval "$(zoxide init zsh)"
