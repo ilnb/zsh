@@ -70,6 +70,10 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
+zstyle ':fzf-tab:complete:cpg:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
+zstyle ':fzf-tab:complete:mvg:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
+zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
+zstyle ':fzf-tab:complete:rm:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
 zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1a --icons=auto --color=always $realpath'
 
 # General Aliases
@@ -82,7 +86,9 @@ alias com='nvim ~/code/arch\ commands'
 alias ng='~/.config/nvim'
 alias hycfg='find ~/.config/hypr \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/hypr/"{}"'
 alias hg='~/.config/hypr'
-alias cp='rsync -h --info=progress2'
+alias cp='/usr/bin/cpg -g'
+alias mv='/usr/bin/mvg -g'
+# alias cp='rsync -h --info=progress2'
 alias shell='nvim ~/.zshrc'
 alias his='nvim ~/.zsh_history'
 alias anime='ani-cli'
@@ -153,6 +159,7 @@ alias .5='cd ../../../../..'
 alias mkdir='mkdir -p'
 
 # Shell integrations
+export PATH="$HOME/.cargo/bin:$PATH"
 export GTK_IM_MODULE='fcitx'
 export QT_IM_MODULE='fcitx'
 export XMODIFIERS='@im=fcitx'
