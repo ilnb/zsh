@@ -62,8 +62,7 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
-# unsetopt hist_verify
-# uncoment for direct exec of expansions
+# unsetopt hist_verify # uncoment for direct exec of expansions
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -146,16 +145,9 @@ alias in='sudo pacman -Sy'
 alias yin='yay -Sy'
 alias un='sudo pacman -Rns'
 alias up='in -u && yin -u'
-
-# Directory navigation shortcuts
 alias yz='yazi'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias .5='cd ../../../../..'
 
-# Always mkdir a path (this doesn't inhibit functionality to make a single dir)
+# Always mkdir a path
 alias mkdir='mkdir -p'
 
 # Shell integrations
