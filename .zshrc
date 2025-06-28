@@ -105,6 +105,7 @@ alias dont='lenopow -e'
 alias ls='eza --icons=auto' # grid
 alias la='eza -a --icons=auto' # grid all
 alias l='eza -lha --icons=auto' # long list
+alias ll='l'
 alias lt='eza --icons=auto --tree' # list folder as tree
 
 # Power modes
@@ -142,8 +143,8 @@ alias in='sudo pacman -Sy'
 alias yin='yay -Sy'
 alias un='sudo pacman -Rns'
 alias up='in -u && yin -u'
-# alias gd='WINEDLLOVERRIDES="xinput1_4=n,b" wine ~/GeometryDash/GeometryDash.exe'
-alias gd='wine ~/GeometryDash/GeometryDash.exe'
+alias gd='cd ~/GeometryDash/ && wine GeometryDash.exe'
+alias gs=''
 
 # Always mkdir a path
 alias mkdir='mkdir -p'
