@@ -143,8 +143,7 @@ alias in='sudo pacman -Sy'
 alias yin='yay -Sy'
 alias un='sudo pacman -Rns'
 alias up='in -u && yin -u'
-alias gd='cd ~/GeometryDash/ && wine GeometryDash.exe'
-alias gs=''
+alias gs='gst'
 
 # Always mkdir a path
 alias mkdir='mkdir -p'
