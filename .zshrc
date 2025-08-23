@@ -62,9 +62,11 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+setopt NO_BEEP
 # unsetopt hist_verify # uncoment for direct exec of expansions
 
 # Completion styling
+_comp_options+=(globdots)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
@@ -81,7 +83,7 @@ alias ff='c && fastfetch'
 alias ffn='c && fastfetch --load-config ~/.config/fastfetch/base_config.jsonc'
 alias ffa='c && ff -c all'
 alias com='nvim ~/code/arch\ commands'
-#alias nvcfg='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
+# alias nvcfg='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
 alias ng='~/.config/nvim'
 alias hycfg='find ~/.config/hypr \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/hypr/"{}"'
 alias hg='~/.config/hypr'
@@ -123,16 +125,18 @@ perf() {
 
 # Git Aliases
 alias g='git'
-alias ga='git add'
-alias gaa='git add --all' # adds new and old files
-alias gcm='git commit -m' # commit message
-alias gcam='git commit -am' # commits old files
-alias gaacm='git add -A && git commit -m' # commits new and old files
-alias gp='git push'
-alias gpm='git push --set-upstream origin main'
-alias gst='git status'
-alias grs='git restore'
-alias grst='git restore --staged'
+alias ga='g add'
+alias gaa='g add --all' # adds new and old files
+alias gc='g clone'
+alias gcm='g commit -m' # commit message
+alias gcam='g commit -am' # commits old files
+alias gaacm='g add -A && g commit -m' # commits new and old files
+alias gp='g push'
+alias gpm='g push -u origin main'
+alias gst='g status'
+alias gs='gst'
+alias grs='g restore'
+alias grst='g restore --staged'
 
 # Packages
 alias pl='$aurhelper -Qs' # list installed package
@@ -143,16 +147,16 @@ alias in='sudo pacman -Sy'
 alias yin='yay -Sy'
 alias un='sudo pacman -Rns'
 alias up='in -u && yin -u'
-alias gs='gst'
 
 # Always mkdir a path
 alias mkdir='mkdir -p'
 
 # Shell integrations
 export PATH="$HOME/.cargo/bin:$PATH"
-export GTK_IM_MODULE='fcitx'
-export QT_IM_MODULE='fcitx'
-export XMODIFIERS='@im=fcitx'
+# export INPUT_METHOD='fcitx'  # might not need all this
+# export GTK_IM_MODULE='fcitx'
+# export QT_IM_MODULE='fcitx'
+# export XMODIFIERS='@im=fcitx'
 export LANG='en_US.UTF-8'
 export FZF_DEFAULT_COMMAND='fd -HI -t f -E .git'
 eval "$(zoxide init --cmd cd zsh)"
