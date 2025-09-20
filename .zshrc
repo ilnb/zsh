@@ -142,7 +142,7 @@ alias grst='g restore --staged'
 alias pl='$aurhelper -Qs' # list installed package
 alias pa='$aurhelper -Ss' # list available package
 alias pc='yes | $aurhelper -Sc' # remove unused cache
-alias po='$aurhelper -Qtdq | $aurhelper -Rns -' # remove unused packages, also try > $aurhelper -Qqd | $aurhelper -Rsu --print -
+alias po='$aurhelper -Qtdq | xargs -ro $aurhelper -Rns' # remove unused packages, also try > $aurhelper -Qqd | $aurhelper -Rsu --print -
 alias in='sudo pacman -Sy'
 alias yin='yay -Sy'
 alias un='sudo pacman -Rns'
@@ -153,6 +153,7 @@ alias mkdir='mkdir -p'
 
 # Shell integrations
 export PATH="$HOME/.cargo/bin:$PATH"
+# export PATH="$CUDA_PATH:$PATH"
 # export INPUT_METHOD='fcitx'  # might not need all this
 # export GTK_IM_MODULE='fcitx'
 # export QT_IM_MODULE='fcitx'
