@@ -123,6 +123,12 @@ perf() {
   done
 }
 
+net() {
+  sudo modprobe -r mt7921e
+  sudo modprobe mt7921e
+  sudo systemctl restart NetworkManager
+}
+
 # Git Aliases
 alias g='git'
 alias ga='g add'
