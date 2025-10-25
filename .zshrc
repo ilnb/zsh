@@ -138,7 +138,7 @@ alias gcm='g commit -m' # commit message
 alias gcam='g commit -am' # commits old files
 alias gaacm='g add -A && g commit -m' # commits new and old files
 alias gp='g push'
-alias gpm='g push -u origin main'
+alias gpm='g push -u origin master'
 alias gst='g status'
 alias gs='gst'
 alias grs='g restore'
@@ -159,6 +159,7 @@ alias mkdir='mkdir -p'
 
 # Shell integrations
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/zig:$PATH"
 # export PATH="$CUDA_PATH:$PATH"
 # export INPUT_METHOD='fcitx'  # might not need all this
 # export GTK_IM_MODULE='fcitx'
