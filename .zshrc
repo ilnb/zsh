@@ -44,9 +44,22 @@ elif pacman -Qi paru &>/dev/null; then
   aurhelper="paru"
 fi
 
+# fzf directories
+fzf_cd() {
+  local dir
+  dir=$(fd -t d -H -E .git -E .cache\
+    | rg '^(\.config|\.local|[^.])' \
+    | fzf
+  ) || return
+  cd "$dir" || return
+  zle accept-line
+}
+zle -N fzf_cd
+
 # Keybindings
 bindkey -v
 bindkey '^H' fzf_history_search
+bindkey '^F' fzf_cd
 # bindkey '^p' history-search-backward
 # bindkey '^n' history-search-forward
 
@@ -123,12 +136,6 @@ perf() {
   done
 }
 
-net() {
-  sudo modprobe -r mt7921e
-  sudo modprobe mt7921e
-  sudo systemctl restart NetworkManager
-}
-
 # Git Aliases
 alias g='git'
 alias ga='g add'
@@ -159,7 +166,7 @@ alias mkdir='mkdir -p'
 
 # Shell integrations
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.local/zig:$PATH"
+export PATH="$HOME/.zig:$PATH"
 # export PATH="$CUDA_PATH:$PATH"
 # export INPUT_METHOD='fcitx'  # might not need all this
 # export GTK_IM_MODULE='fcitx'
