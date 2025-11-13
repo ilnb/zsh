@@ -47,11 +47,14 @@ fi
 # fzf directories
 fzf_cd() {
   local dir
-  dir=$(fd -t d -H -E .git -E .cache\
-    | rg '^(\.config|\.local|[^.])' \
+  dir=$(
+    fd -t d -H -E .git -E .cache . "$HOME" \
+    | rg '^(\.config|\.local|[^.])|^\.\./' \
+    | sed "s|^$HOME|~|; s|/$||" \
     | fzf
   ) || return
-  cd "$dir" || return
+  dir="${dir/#\~/$HOME}"
+  cd -- "$dir" || return
   zle accept-line
 }
 zle -N fzf_cd
@@ -109,6 +112,7 @@ alias anime='ani-cli'
 alias fvim='fzf --preview "cat {}" | xargs -rI {} nvim "{}"'
 alias fevim='fzf -e --preview "cat {}" | xargs -rI {} nvim "{}"'
 alias pyenv='source ~/venv/bin/activate'
+alias lvim='NVIM_APPNAME=lazyvim nvim'
 
 # System related
 alias off='shutdown now'
