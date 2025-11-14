@@ -96,7 +96,7 @@ zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1a --icons=auto --color=always 
 # General Aliases
 alias c='clear'
 alias ff='c && fastfetch'
-alias ffn='c && fastfetch --load-config ~/.config/fastfetch/base_config.jsonc'
+alias ffn='c && fastfetch --config ~/.config/fastfetch/base_config.jsonc'
 alias ffa='c && ff -c all'
 alias com='nvim ~/code/arch\ commands'
 # alias nvcfg='find ~/.config/nvim \( -path "*/.git/*" \) -prune -o -printf "%P\n" | fzf | xargs -rI {} nvim ~/.config/nvim/"{}"'
