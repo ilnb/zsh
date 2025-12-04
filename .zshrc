@@ -105,6 +105,7 @@ alias hycfg='find ~/.config/hypr \( -path "*/.git/*" \) -prune -o -printf "%P\n"
 alias hg='~/.config/hypr'
 alias cp='/usr/bin/cpg -g'
 alias mv='/usr/bin/mvg -g'
+alias open='open_command'
 # alias cp='rsync -h --info=progress2'
 alias shell='nvim ~/.zshrc'
 alias his='nvim ~/.zsh_history'
@@ -129,15 +130,19 @@ alias lt='eza --icons=auto --tree' # list folder as tree
 
 # Power modes
 psave() {
-  for cpu in /sys/devices/system/cpu/cpu[0-9]*; do
-    echo powersave | sudo tee "$cpu/cpufreq/scaling_governor"
+  for cpu in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
+    echo power | sudo tee "$cpu" >/dev/null
   done
+
+  echo 0 | sudo tee /sys/devices/system/cpu/cpufreq/boost
 }
 
 perf() {
-  for cpu in /sys/devices/system/cpu/cpu[0-9]*; do
-    echo performance | sudo tee "$cpu/cpufreq/scaling_governor"
+  for cpu in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
+    echo performance | sudo tee "$cpu" >/dev/null
   done
+
+  echo 1 | sudo tee /sys/devices/system/cpu/cpufreq/boost
 }
 
 # Git Aliases
@@ -170,7 +175,7 @@ alias mkdir='mkdir -p'
 
 # Shell integrations
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.zig:$PATH"
+# export PATH="$HOME/.zig:$PATH"
 # export PATH="$CUDA_PATH:$PATH"
 # export INPUT_METHOD='fcitx'  # might not need all this
 # export GTK_IM_MODULE='fcitx'
@@ -178,4 +183,5 @@ export PATH="$HOME/.zig:$PATH"
 # export XMODIFIERS='@im=fcitx'
 export LANG='en_US.UTF-8'
 export FZF_DEFAULT_COMMAND='fd -HI -t f -E .git'
+export EDITOR='nvim'
 eval "$(zoxide init --cmd cd zsh)"
