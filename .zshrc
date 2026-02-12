@@ -45,7 +45,7 @@ elif pacman -Qi paru &>/dev/null; then
 fi
 
 # fzf directories
-fzf_cd() {
+fzf_home() {
   local dir
   dir=$(
     fd -t d -H -E .git -E .cache . "$HOME" \
@@ -57,14 +57,28 @@ fzf_cd() {
   cd -- "$dir" || return
   zle accept-line
 }
-zle -N fzf_cd
+zle -N fzf_home
+
+fzf_curr() {
+  local dir
+  dir=$(
+    fd -t d -H -E .git -E .cache . \
+    | rg '^(\.config|\.local|[^.])|^\.\./' \
+    | fzf
+  ) || return
+  dir="${dir/#\~/$HOME}"
+  cd -- "$dir" || return
+  zle accept-line
+}
+zle -N fzf_curr
 
 # Keybindings
 bindkey -v
 bindkey '^W' backward-kill-word
 bindkey -M vicmd '^W' backward-kill-word
 bindkey '^H' fzf_history_search
-bindkey '^F' fzf_cd
+bindkey '^F' fzf_home
+bindkey '^G' fzf_curr
 # bindkey '^p' history-search-backward
 # bindkey '^n' history-search-forward
 
@@ -80,8 +94,9 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
-setopt NO_BEEP
 # unsetopt hist_verify # uncoment for direct exec of expansions
+setopt no_beep
+setopt correct
 
 # Completion styling
 _comp_options+=(globdots)
@@ -116,7 +131,7 @@ alias fvim='fzf --preview "cat {}" | xargs -rI {} nvim "{}"'
 alias fevim='fzf -e --preview "cat {}" | xargs -rI {} nvim "{}"'
 alias pyenv='source ~/venv/bin/activate'
 alias lvim='NVIM_APPNAME=lazyvim nvim'
-alias g++='g++ -std=c++20'
+alias g++='g++ -std=c++23'
 
 # System related
 alias off='shutdown now'
@@ -180,13 +195,10 @@ alias mkdir='mkdir -p'
 export PATH="$HOME/.cargo/bin:$PATH"
 export QML_IMPORT_PATH="/usr/lib/qt/qml"
 export QML_IMPORT_PATH="$HOME/.config/quickshell:$QML_IMPORT_PATH"
-# export PATH="$HOME/.zig:$PATH"
-# export PATH="$CUDA_PATH:$PATH"
-# export INPUT_METHOD='fcitx'  # might not need all this
-# export GTK_IM_MODULE='fcitx'
-# export QT_IM_MODULE='fcitx'
-# export XMODIFIERS='@im=fcitx'
-export LANG='en_US.UTF-8'
 export FZF_DEFAULT_COMMAND='fd -HI -t f -E .git'
 export EDITOR='nvim'
+# export RUN_TMUX=1
 eval "$(zoxide init --cmd cd zsh)"
+if [[ "$TERM" != "xterm-256color" && -n "$RUN_TMUX" ]]; then
+  tmux
+fi
