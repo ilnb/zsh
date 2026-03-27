@@ -44,7 +44,38 @@ elif pacman -Qi paru &>/dev/null; then
   aurhelper="paru"
 fi
 
+# OMZ update
+omzup() {
+  (omz update)
+  local custom=~/.oh-my-zsh/custom
+  for d in "$custom"/plugins/*/ "$custom"/themes/*/; do
+    [[ -d "$d/.git" ]] || continue
+    git -C "$d" pull
+  done
+}
+
+# # nvidia power control
+# nvidia() {
+#   CMD=$1
+#   OP="auto"
+#   if [[ "$CMD" == "on" ]]; then
+#     OP="on"
+#   fi
+#   echo $OP | sudo tee /sys/bus/pci/devices/0000:01:00.0/power/control
+# }
+
 # fzf directories
+fzf_root() {
+  local dir
+  dir=$(
+    fd -t d -H -E .git -E .cache . / \
+    | fzf
+  ) || return
+  cd -- "$dir" || return
+  zle accept-line
+}
+zle -N fzf_root
+
 fzf_home() {
   local dir
   dir=$(
@@ -77,6 +108,7 @@ bindkey -v
 bindkey '^W' backward-kill-word
 bindkey -M vicmd '^W' backward-kill-word
 bindkey '^H' fzf_history_search
+bindkey '^_' fzf_root # forward slash
 bindkey '^F' fzf_home
 bindkey '^G' fzf_curr
 # bindkey '^p' history-search-backward
@@ -96,6 +128,9 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 # unsetopt hist_verify # uncoment for direct exec of expansions
 setopt no_beep
+if [[ $(tty) == "/dev/tty*" ]]; then # no more tty beeps
+  setterm --blength 0
+fi
 setopt correct
 
 # Completion styling
@@ -186,19 +221,22 @@ alias po='$aurhelper -Qtdq | xargs -ro $aurhelper -Rns' # remove unused packages
 alias in='sudo pacman -Sy'
 alias yin='yay -Sy'
 alias un='sudo pacman -Rns'
-alias up='in -u && yin -u'
+alias up='in -u && yin -u && command -v flatpak 1>/dev/null && flatpak update'
 
 # Always mkdir a path
 alias mkdir='mkdir -p'
 
 # Shell integrations
+export PATH="$PATH:."
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.nimble/bin:$PATH" # nim
+export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export QML_IMPORT_PATH="/usr/lib/qt/qml"
 export QML_IMPORT_PATH="$HOME/.config/quickshell:$QML_IMPORT_PATH"
 export FZF_DEFAULT_COMMAND='fd -HI -t f -E .git'
-export EDITOR='nvim'
 # export RUN_TMUX=1
 eval "$(zoxide init --cmd cd zsh)"
+# dont run tmux with wezterm
 if [[ "$TERM" != "xterm-256color" && -n "$RUN_TMUX" ]]; then
   tmux
 fi
